@@ -28,7 +28,8 @@ const app = createApp({
     methods:{
         rollDice(){
              // 掷骰子，随机生成1-6的整数
-            this.diceNum = Math.floor(Math.random() * 6) + 1        
+            this.diceNum = Math.floor(Math.random() * 6) + 1       
+            // this.diceNum = 64 
             // 移动棋子
             setTimeout(() => {
                 this.MovePiece()

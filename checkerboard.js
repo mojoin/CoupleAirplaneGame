@@ -42,6 +42,14 @@ function createCheckerboard(checkerboardElement){
         }
         checkerboardElement.appendChild(row)
     }
+
+    // 添加终点
+    let endCell = getCellByPosition(64)
+    endCell.classList.add('end-cell')
+    let house = document.createElement('img')
+    house.classList.add('house')
+    house.src = './img/终点.png'
+    endCell.appendChild(house)
 }
 
 function movePiece(who, playerPosition, diceNum){
