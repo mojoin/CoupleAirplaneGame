@@ -3,11 +3,26 @@ html, body{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #f5f7fa 0%, #e4e9f2 100%);
 }
 body{
     width: 100%;
     height: 100%;
+    color: #333;
+}
 
+/* 定义主题色 */
+:root {
+    --boy-color: #66b3ff;
+    --girl-color: #ff99cc;
+    --primary-color: #ff6b6b;
+    --secondary-color: #4ecdc4;
+    --background-color: #f8f9fa;
+    --text-color: #333;
+    --border-radius: 10px;
+    --shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
 }
 #main{
     width: 100%;
@@ -15,50 +30,104 @@ body{
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
+    padding: 20px;
+    gap: 20px;
 }
 #upper_part{
     width: 100%;
     flex: 0 0 auto;
     display: flex;
     flex-direction: column;
-    border: 1px solid black;
+    background: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
     box-sizing: border-box;
-    margin-bottom: 10px;
+    padding: 20px;
 }
 #player_board{
     width: 100%;
     flex: 0 0 auto;
     display: flex;
     flex-direction: row;
-    border: 1px solid black;
+    justify-content: space-around;
+    align-items: center;
     box-sizing: border-box;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
+    padding: 20px;
+    background: linear-gradient(90deg, var(--boy-color) 0%, white 50%, var(--girl-color) 100%);
+    border-radius: var(--border-radius);
 }
 
 .player{
     width: 30%;
-    height: 50%;
     display: flex;
     flex-direction: column;
-    border: 1px solid black;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+    background: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+}
+
+.player:nth-child(1) {
+    border: 3px solid var(--boy-color);
+}
+
+.player:nth-child(3) {
+    border: 3px solid var(--girl-color);
 }
 
 #current_turn{
     width: 30%;
-    height: 50%;
     display: flex;
     flex-direction: column;
-    border: 1px solid black;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+    background: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    font-weight: bold;
+    font-size: 18px;
+    border: 3px solid var(--primary-color);
 }
+
+#current_turn_text {
+    color: var(--primary-color);
+    font-size: 24px;
+    margin: 10px 0;
+}
+
 .player_img{
     width: 100px;
     height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #ddd;
+    box-shadow: var(--shadow);
+    margin-bottom: 10px;
+    transition: var(--transition);
 }
+
+.player:hover .player_img {
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
 #dice{
     width: 100%;
-    height: 50%;
-    border: 1px solid black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: linear-gradient(135deg, var(--secondary-color), #45b7aa);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
     box-sizing: border-box;
+    position: relative;
+    overflow: visible;
 }
 
 #checkerboard{
@@ -66,78 +135,384 @@ body{
     display: flex;
     flex: 1;
     flex-direction: column;
-    border: 1px solid black;
+    background: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
     box-sizing: border-box;
+    padding: 10px;
+    gap: 5px;
+    overflow: auto;
+    min-height: 0;
 }
 .cell{
     width: auto;
-    height: 60px;
     flex: 1;
+    min-height: 50px;
+    max-height: 80px;
     flex-direction: row;
-    border: 1px solid black;
+    background: linear-gradient(135deg, #f0f4f8 0%, #e2e8f0 100%);
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
     box-sizing: border-box;
     position: relative;
-    p{
-        position: relative;
-        font-size: 10px;
-        text-align: center;
-        line-height: 60px;
-        flex: 1;
-    }
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+    font-weight: bold;
+    font-size: 14px;
+    aspect-ratio: 1;
 }
+
+.cell:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    border-color: var(--primary-color);
+}
+
+/* 为不同类型的格子添加特殊样式 */
+.cell.start {
+    background: linear-gradient(135deg, var(--primary-color), #ff8787);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+.cell.end {
+    background: linear-gradient(135deg, #ffd93d, #ffed4e);
+    color: #333;
+    border-color: #ffd93d;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.cell.task {
+    background: linear-gradient(135deg, var(--secondary-color), #66d9e8);
+    color: white;
+    border-color: var(--secondary-color);
+}
+
+.cell p {
+    position: relative;
+    text-align: center;
+    line-height: normal;
+    flex: 1;
+    margin: 0;
+}
+
 .row{
     width: 100%;
-    flex: 1;
-    gap: 10px;
-    padding: 10px;
     display: flex;
     flex-direction: row;
+    gap: 5px;
+    padding: 2px;
     box-sizing: border-box;
+    flex: 1;
+    min-height: 0;
 }
 .piece-img{
     position: absolute;
-    height: 50px;
+    height: 70%;
+    width: 70%;
     object-fit: cover;
     z-index: 10;
+    border-radius: 50%;
+    border: 2px solid white;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+    transition: var(--transition);
 }
+
+.piece-img:hover {
+    transform: scale(1.1);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
 .piece-img.boy-piece{
     top: 5px;
     left: 5px;
+    border-color: var(--boy-color);
 }
 
 .piece-img.girl-piece{
     top: 5px;
     right: 5px;
+    border-color: var(--girl-color);
 }
+/* 骰子区域样式 */
+#dice_num {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    color: white;
+    text-align: center;
+}
+
+#roll_dice {
+    padding: 12px 30px;
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+    background: linear-gradient(135deg, var(--primary-color), #ff8787);
+    border: none;
+    border-radius: 50px;
+    box-shadow: var(--shadow);
+    cursor: pointer;
+    transition: var(--transition);
+    margin-bottom: 10px;
+}
+
+#roll_dice:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+    background: linear-gradient(135deg, #ff8787, var(--primary-color));
+}
+
+#roll_dice:active {
+    transform: translateY(0);
+}
+
+#dice_num_text {
+    font-size: 48px;
+    font-weight: bold;
+    margin: 0;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    /* 添加骰子图片样式 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 120px;
+    height: 120px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    color: #333;
+    text-shadow: none;
+    position: relative;
+    z-index: 10;
+    transform: scale(1);
+    transition: transform 0.3s ease;
+    overflow: visible;
+}
+
+#dice_num_text:hover {
+    transform: scale(1.05);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3);
+}
+
+#task_text {
+    font-size: 18px;
+    margin: 0;
+    color: white;
+    font-style: italic;
+}
+
+/* 按钮通用样式 */
+button {
+    padding: 10px 25px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 50px;
+    box-shadow: var(--shadow);
+    cursor: pointer;
+    transition: var(--transition);
+    margin: 5px;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+/* 任务窗口样式 */
 #Task_Window{
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.6);
     display: flex;
     justify-content: center;
     align-items: center; 
     z-index: 1000; 
+    backdrop-filter: blur(5px);
 }
+
 #task_content{
     width: 500px;
-    height: 200px;
     background-color: white;
-    border-radius: 10px;
-    padding: 20px;
+    border-radius: var(--border-radius);
+    padding: 30px;
     box-sizing: border-box;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    animation: slideIn 0.3s ease-out;
 }
+
+#task_content h1 {
+    color: var(--primary-color);
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+#accept_task {
+    background: linear-gradient(135deg, #51cf66, #40c057);
+    color: white;
+}
+
+#reject_task {
+    background: linear-gradient(135deg, #ff6b6b, #ff8787);
+    color: white;
+}
+
+/* 游戏结束窗口样式 */
 #gameOver{
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.6);
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center; 
     z-index: 1000; 
+    backdrop-filter: blur(5px);
+}
+
+#gameOver h1 {
+    color: white;
+    font-size: 48px;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+#gameOver_text {
+    color: white;
+    font-size: 24px;
+    margin-bottom: 30px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+#restart_game {
+    padding: 15px 40px;
+    font-size: 20px;
+    background: linear-gradient(135deg, var(--secondary-color), #66d9e8);
+    color: white;
+}
+
+/* 动画效果 */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50px) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* 骰子滚动动画 */
+@keyframes diceRoll {
+    0% {
+        transform: rotate(0deg) scale(1);
+    }
+    20% {
+        transform: rotate(72deg) scale(1.1);
+    }
+    40% {
+        transform: rotate(144deg) scale(0.9);
+    }
+    60% {
+        transform: rotate(216deg) scale(1.1);
+    }
+    80% {
+        transform: rotate(288deg) scale(0.9);
+    }
+    100% {
+        transform: rotate(360deg) scale(1);
+    }
+}
+
+/* 骰子滚动动画类 */
+.dice-rolling {
+    animation: diceRoll 0.5s ease-in-out;
+}
+
+/* 棋子移动动画 */
+.piece-img {
+    transition: transform 0.5s ease-in-out;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    #main {
+        padding: 10px;
+        gap: 10px;
+    }
+    
+    #player_board {
+        flex-direction: column;
+        gap: 15px;
+        padding: 15px;
+    }
+    
+    .player, #current_turn {
+        width: 100%;
+    }
+    
+    .player_img {
+        width: 80px;
+        height: 80px;
+    }
+    
+    #checkerboard {
+        padding: 10px;
+    }
+    
+    .cell {
+        height: 50px;
+        font-size: 12px;
+    }
+    
+    .piece-img {
+        height: 35px;
+        width: 35px;
+    }
+    
+    #task_content {
+        width: 90%;
+        padding: 20px;
+    }
+    
+    #roll_dice {
+        padding: 10px 25px;
+        font-size: 16px;
+    }
+    
+    #dice_num_text {
+        font-size: 32px;
+        width: 100px;
+        height: 100px;
+    }
 }
