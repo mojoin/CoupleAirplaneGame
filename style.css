@@ -14,6 +14,11 @@
     --radius-md: 12px;
 }
 
+* {
+    box-sizing: border-box;
+    /* Fixes width calculations including padding */
+}
+
 html,
 body {
     height: 100%;
@@ -34,16 +39,17 @@ body {
     margin: 0 auto;
     display: flex;
     flex-flow: row wrap;
-    /* Allow wrapping for layout */
     align-content: flex-start;
     gap: 15px;
     padding: 10px;
     box-sizing: border-box;
+    /* Reinforced */
     background-color: rgba(255, 255, 255, 0.5);
     backdrop-filter: blur(10px);
     box-shadow: 0 0 40px rgba(0, 0, 0, 0.05);
     overflow-y: auto;
-    /* Allow main to scroll if needed */
+    overflow-x: hidden;
+    /* Prevent horizontal scrollbar */
 }
 
 /* Remove #upper_part styles - it's gone */
@@ -60,6 +66,7 @@ body {
     box-shadow: var(--shadow-sm);
     padding: 15px;
     margin: 0;
+    box-sizing: border-box;
 }
 
 .player {
@@ -142,6 +149,7 @@ body {
     padding: 15px;
     position: relative;
     overflow: hidden;
+    box-sizing: border-box;
 }
 
 #dice_num {
@@ -192,7 +200,10 @@ body {
 
 /* Checkerboard */
 #checkerboard {
-    flex: 1;
+    flex: 0 0 100%;
+    /* Force valid new row on desktop */
+    order: 3;
+    /* Ensure it comes last in the flow */
     display: flex;
     flex-direction: column;
     background: white;
@@ -201,8 +212,11 @@ body {
     padding: 10px;
     border: none;
     overflow-y: auto;
-    /* Allow scroll if screen is too short */
     margin-bottom: 10px;
+    height: 600px;
+    /* Give it a fixed height on desktop or flex-grow if container allows */
+    /* Actually, purely 100% width is enough to wrap it */
+    box-sizing: border-box;
 }
 
 .row {
