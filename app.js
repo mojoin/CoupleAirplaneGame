@@ -35,8 +35,8 @@ const app = createApp({
                 this.movePlayer()
                 setTimeout(() => {
                     this.RandomTask()
-                }, 1000)
-                //this.diceNum*500)
+                }, this.diceNum*500)
+                //)
             }, 1000)
         },
         WhoRound(){
