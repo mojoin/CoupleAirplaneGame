@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>情侣飞行棋</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <div id = "main">
+        <div id="upper_part">
+            <div id="player_board">
+                <div class="player">
+                    <img class="player_img" src="./img/boy.jpg" alt="男生">
+                    玩家1
+                </div>
+                <div id="current_turn">
+                    当前回合
+                    <p id="current_turn_text">{{exchangeRound ? '男孩' : '女孩'}}</p>
+                </div>
+                <div class="player">
+                    <img class="player_img" src="./img/girl.jpg" alt="女生">
+                    玩家2
+                </div>
+            </div>
+            <div id="dice">
+                <div id="dice_num">
+                    <input type="button" id="roll_dice" @click="rollDice" value="掷骰子">
+                    <p id="dice_num_text">{{diceNum}}</p>
+                    <p id="task_text">{{task}}</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="checkerboard">
+        </div>
+
+        <div id="Task_Window" v-show="showTaskWindow">
+            <div id="task_content">
+                <h1>任务：{{task}}</h1>
+                <button id="accept_task" @click="acceptTask">完成任务</button>
+                <button id="reject_task" @click="rejectTask">未完成任务</button>
+            </div>
+        </div>
+
+        <div id="gameOver" v-show="gameOver">
+            <h1>游戏结束</h1>
+            <p id="gameOver_text">{{gameOverText}}</p>
+            <button id="restart_game" @click="restartGame">重新开始</button>
+        </div>
+    </div>
+    
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="./checkerboard.js"></script>
+    <script src="./app.js"></script>
+</body>
+</html>
