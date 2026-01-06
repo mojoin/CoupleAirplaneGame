@@ -8,27 +8,25 @@
 </head>
 <body>
     <div id = "main">
-        <div id="upper_part">
-            <div id="player_board">
-                <div class="player">
-                    <img class="player_img" src="./img/boy.jpg" alt="男生">
-                    玩家1
-                </div>
-                <div id="current_turn">
-                    当前回合
-                    <p id="current_turn_text">{{exchangeRound ? '男孩' : '女孩'}}</p>
-                </div>
-                <div class="player">
-                    <img class="player_img" src="./img/girl.jpg" alt="女生">
-                    玩家2
-                </div>
+        <div id="player_board">
+            <div class="player">
+                <img class="player_img" src="./img/boy.jpg" alt="男生">
+                玩家1
             </div>
-            <div id="dice">
-                <div id="dice_num">
-                    <input type="button" id="roll_dice" @click="rollDice" value="掷骰子">
-                    <p id="dice_num_text">{{diceNum}}</p>
-                    <p id="task_text">{{task}}</p>
-                </div>
+            <div id="current_turn">
+                当前回合
+                <p id="current_turn_text">{{exchangeRound ? '男孩' : '女孩'}}</p>
+            </div>
+            <div class="player">
+                <img class="player_img" src="./img/girl.jpg" alt="女生">
+                玩家2
+            </div>
+        </div>
+        <div id="dice">
+            <div id="dice_num">
+                <input type="button" id="roll_dice" @click="rollDice" value="掷骰子">
+                <p id="dice_num_text">{{diceNum}}</p>
+                <p id="task_text">{{task}}</p>
             </div>
         </div>
 

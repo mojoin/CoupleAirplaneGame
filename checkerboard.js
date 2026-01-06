@@ -21,6 +21,23 @@ function createCheckerboard(checkerboardElement){
             let cellText = document.createElement('p')
             cellText.textContent = cellNumber
             cell.appendChild(cellText)
+
+            // Add Arrow
+            let direction = ''
+            if (isEvenRow) {
+                if (j < 7) direction = 'right'
+                else if (i < 7) direction = 'down'
+            } else {
+                if (j > 0) direction = 'left'
+                else if (i < 7) direction = 'down'
+            }
+
+            if (direction) {
+                let arrow = document.createElement('div')
+                arrow.classList.add('arrow', direction)
+                cell.appendChild(arrow)
+            }
+
             row.appendChild(cell)
         }
         checkerboardElement.appendChild(row)
