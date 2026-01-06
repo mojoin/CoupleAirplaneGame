@@ -57,7 +57,7 @@ function movePiece(who, playerPosition, diceNum){
         currentPosition++  // 移动到下一格
         moveToNext(currentPosition)  // 执行移动
         
-        setTimeout(animate, 10)  // 500ms 后继续移动
+        setTimeout(animate, 500)  // 500ms 后继续移动
     }
     
     animate()  // 开始动画
