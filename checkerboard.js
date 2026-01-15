@@ -25,6 +25,13 @@ function createCheckerboard(checkerboardElement){
         }
         checkerboardElement.appendChild(row)
     }
+    // 添加终点
+    let endCell = getCellByPosition(64)
+    endCell.classList.add('end-cell')
+    let house = document.createElement('img')
+    house.classList.add('house')
+    house.src = './img/终点.png'
+    endCell.appendChild(house)
 }
 
 function movePiece(who, playerPosition, diceNum){
@@ -71,6 +78,53 @@ function getCellByPosition(position){
         }
     }
     return null
+}
+
+async function selectLevel(vueApp)
+{
+    const level = document.getElementById('level')
+    if(!level){
+        console.error('未找到#level元素')
+        return
+    }
+    const response = await fetch('./tasks/tasks.json') 
+    const data = await response.json()
+    for(let i = 0; i < data.length; i++){
+        const mode = data[i]
+        const modeCard = document.createElement('div')
+        modeCard.classList.add('mode-card')
+        modeCard.dataset.modeIndex = i
+        modeCard.dataset.modeTitle = mode.title
+        
+        const title = document.createElement('h4')
+        title.classList.add('mode-title')
+        title.textContent = mode.title
+        
+        const description = document.createElement('p')
+        description.classList.add('mode-description')
+        description.textContent = mode.description
+        
+        const selectBtn = document.createElement('button')
+        selectBtn.classList.add('mode-select-btn')
+        selectBtn.textContent = '选择此模式'
+        selectBtn.onclick = () => {
+            if(vueApp){
+                vueApp.showLevel = false
+            }
+            vueApp.level = mode.title
+            window.selectedMode = mode
+            document.querySelectorAll('.mode-card').forEach(card => {
+                card.classList.remove('selected')
+            })
+            modeCard.classList.add('selected')
+            console.log(`已选择模式：${mode.title}`)
+        }
+        modeCard.appendChild(title)
+        modeCard.appendChild(description)
+        modeCard.appendChild(selectBtn)
+        level.appendChild(modeCard)
+    }
+    console.log(level) 
 }
 
 function initPieces(){

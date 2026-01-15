@@ -109,6 +109,16 @@ body{
     top: 5px;
     right: 5px;
 }
+/* .end-cell{
+    position: relative;
+} */
+.house{
+    position: absolute;
+    top: -10px;
+    height: 80px;
+    object-fit: cover;
+    z-index: 100;
+}
 #Task_Window{
     position: fixed;
     top: 0;
@@ -140,4 +150,40 @@ body{
     justify-content: center;
     align-items: center; 
     z-index: 1000; 
+}
+#level {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center; /* 水平居中 */
+    align-items: center;     /* 垂直居中 */
+}
+.mode-card {
+    width: 280px;
+    max-height: 500px;
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 0;
+    box-sizing: border-box;
+    display: flex;            /* 必须加上 display:flex 才能让下面的 direction 生效 */
+    flex-direction: column;   /* 子元素垂直排列 */
+    gap: 15px;               /* 子元素之间的统一间距 */
+}
+.mode-description {
+    flex: 1;          /* 占据剩余空间 */
+    text-align: center; /* 文字居中 */
+}
+.mode-select-btn {
+    flex: 0 0 auto;   /* 修复：不再强制拉伸，保持按钮自身高度 */
+    padding: 10px 0;  /* 增加按钮上下内边距，更好点击 */
+    border: none;
+    border-radius: 5px;
+    background-color: #f0f0f0; /* 简单的中性背景 */
+    cursor: pointer;
 }

@@ -27,7 +27,7 @@
                 <div id="dice_num">
                     <input type="button" id="roll_dice" @click="rollDice" value="掷骰子">
                     <p id="dice_num_text">{{diceNum}}</p>
-                    <p id="task_text">{{task}}</p>
+                    <p id="task_text">{{level}}:{{task}}</p>
                 </div>
             </div>
         </div>
@@ -38,7 +38,7 @@
         <div id="Task_Window" v-show="showTaskWindow">
             <div id="task_content">
                 <h1>任务：{{task}}</h1>
-                <button id="accept_task" @click="acceptTask">完成任务</button>
+                <button id="accept_task" @click="acceptTask">已完成任务</button>
                 <button id="reject_task" @click="rejectTask">未完成任务</button>
             </div>
         </div>
@@ -47,6 +47,9 @@
             <h1>游戏结束</h1>
             <p id="gameOver_text">{{gameOverText}}</p>
             <button id="restart_game" @click="restartGame">重新开始</button>
+        </div>
+        <div id="level" v-show="showLevel">
+    
         </div>
     </div>
     

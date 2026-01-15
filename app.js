@@ -14,15 +14,18 @@ const app = createApp({
             gameRound: 0,
             exchangeRound: true,
             task: '你抽到的任务是:',
-            showTaskWindow: false
-        }
+            showTaskWindow: false,
+            level:'',
+            showLevel: true
+        }   
     },
     mounted(){
+        selectLevel(this)
         this.checkerboard = document.getElementById('checkerboard')
         if( typeof createCheckerboard === 'function' ){
             createCheckerboard(this.checkerboard)
         }
-        this.WhoRound()
+        this.WhoRound() 
         initPieces()
     },
     methods:{
@@ -35,8 +38,8 @@ const app = createApp({
                 this.movePlayer()
                 setTimeout(() => {
                     this.RandomTask()
-                }, 1000)
-                //this.diceNum*500)
+                }, this.diceNum*500)
+                //)
             }, 1000)
         },
         WhoRound(){
@@ -65,14 +68,24 @@ const app = createApp({
             }
         },
         async RandomTask(){
-            const response = await fetch('./tasks/tasks.json') 
-            const data = await response.json()
-            const tasks = await data.tasks
+            // const response = await fetch('./tasks/tasks.json') 
+            // const data = await response.json()
+            // const tasks = await data.tasks
+            const tasks = window.selectedMode.tasks
             const randomTask = tasks[Math.floor(Math.random() * tasks.length)]
             this.task = randomTask
             this.showTaskWindow = true
             console.log(randomTask)
         },
+        // async SelectingLevel(){
+        //     const response = await fetch('./tasks/tasks.json') 
+        //     const data = await response.json()
+        //     //const level = await data.
+        //     const randomTask = tasks[Math.floor(Math.random() * tasks.length)]
+        //     this.task = randomTask
+        //     this.showTaskWindow = true
+        //     console.log(randomTask)
+        // },
         acceptTask(){
             this.showTaskWindow = false
             if(this.exchangeRound && this.boyposition >= 64){
