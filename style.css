@@ -1,189 +1,359 @@
-html, body{
+:root {
+    /* --- 治愈系马卡龙调色板 --- */
+    
+    /* 角色色 */
+    --primary-boy: #A0E9FF;       /* 奶昔蓝 */
+    --primary-boy-dark: #3e7c8f;  /* 深一点的蓝用于文字 */
+    --primary-girl: #FFB7B2;      /* 蜜桃粉 */
+    --primary-girl-dark: #8f4a46; /* 深一点的粉用于文字 */
+    
+    /* 环境色 */
+    --bg-color: #FFF9F2;          /* 温暖的米黄背景 */
+    --accent-color: #FFDAC1;      /* 杏色点缀 */
+    
+    /* 棋盘色 */
+    --board-bg: #FFFFFF;
+    --cell-odd: #FFFFFF;
+    --cell-even: #FFF0F3;         /* 极淡的粉色，营造格纹感 */
+    
+    /* 文字色 */
+    --text-main: #6D6D6D;         /* 暖灰色 */
+    --text-light: #A8A8A8;
+    
+    /* 阴影与质感 */
+    --shadow-soft: 0 8px 24px rgba(149, 157, 165, 0.08);
+    --shadow-float: 0 12px 32px rgba(255, 175, 180, 0.2);
+    --border-radius: 24px;
+    
+    /* 字体 */
+    --font-stack: "Quicksand", "Nunito", "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+
+html, body {
     height: 100%;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+    font-family: var(--font-stack);
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    overflow: hidden; /* 防止页面整体滚动 */
 }
-body{
+
+/* 背景波点纹理 */
+body::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-image: radial-gradient(#E2E2E2 15%, transparent 16%);
+    background-size: 20px 20px;
+    opacity: 0.4;
+    z-index: -1;
+}
+
+#main {
     width: 100%;
     height: 100%;
-
-}
-#main{
-    width: 100%;
-    height: 100%;
     display: flex;
     flex-direction: column;
-    box-sizing: border-box;
-}
-#upper_part{
-    width: 100%;
-    flex: 0 0 auto;
-    display: flex;
-    flex-direction: column;
-    border: 1px solid black;
-    box-sizing: border-box;
-    margin-bottom: 10px;
-}
-#player_board{
-    width: 100%;
-    flex: 0 0 auto;
-    display: flex;
-    flex-direction: row;
-    border: 1px solid black;
-    box-sizing: border-box;
-    margin-bottom: 10px;
-}
-
-.player{
-    width: 30%;
-    height: 50%;
-    display: flex;
-    flex-direction: column;
-    border: 1px solid black;
-}
-
-#current_turn{
-    width: 30%;
-    height: 50%;
-    display: flex;
-    flex-direction: column;
-    border: 1px solid black;
-}
-.player_img{
-    width: 100px;
-    height: 100px;
-}
-#dice{
-    width: 100%;
-    height: 50%;
-    border: 1px solid black;
-    box-sizing: border-box;
-}
-
-#checkerboard{
-    width: 100%;
-    display: flex;
-    flex: 1;
-    flex-direction: column;
-    border: 1px solid black;
-    box-sizing: border-box;
-}
-.cell{
-    width: auto;
-    height: 60px;
-    flex: 1;
-    flex-direction: row;
-    border: 1px solid black;
-    box-sizing: border-box;
+    max-width: 600px; /* 限制最大宽度，保持精致感 */
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 0 60px rgba(255, 200, 200, 0.15);
     position: relative;
-    p{
-        position: relative;
-        font-size: 10px;
-        text-align: center;
-        line-height: 60px;
-        flex: 1;
-    }
+    backdrop-filter: blur(5px);
 }
-.row{
-    width: 100%;
-    flex: 1;
+
+/* --- 顶部信息区 --- */
+#upper_part {
+    flex: 0 0 auto;
+    padding: 15px 20px;
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.8);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    z-index: 20;
+    border-radius: 0 0 30px 30px;
+}
+
+#toolbar {
+    display: flex;
+    justify-content: flex-end;
     gap: 10px;
-    padding: 10px;
-    display: flex;
-    flex-direction: row;
-    box-sizing: border-box;
-}
-.piece-img{
-    position: absolute;
-    height: 50px;
-    object-fit: cover;
-    z-index: 10;
-}
-.piece-img.boy-piece{
-    top: 5px;
-    left: 5px;
 }
 
-.piece-img.girl-piece{
-    top: 5px;
-    right: 5px;
+#toolbar button {
+    padding: 8px 16px;
+    min-width: auto;
+    font-size: 12px;
+    background: white;
+    color: var(--text-main);
+    box-shadow: var(--shadow-soft);
 }
-/* .end-cell{
-    position: relative;
-} */
-.house{
-    position: absolute;
-    top: -10px;
-    height: 80px;
+
+#player_board {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #fff;
+    padding: 8px 20px;
+    border-radius: 50px;
+    box-shadow: var(--shadow-soft);
+    border: 2px solid white;
+}
+
+.player {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-light);
+}
+
+.player_img {
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
     object-fit: cover;
-    z-index: 100;
+    border: 4px solid white;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    margin-bottom: 4px;
+    transition: all 0.3s;
 }
-#Task_Window{
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+
+/* 动态高亮 - 通过JS控制class或直接利用CSS选择器 */
+.player:first-child .player_img { border-color: var(--primary-boy); }
+.player:last-child .player_img { border-color: var(--primary-girl); }
+
+#current_turn {
+    text-align: center;
+}
+#current_turn p { font-size: 12px; margin: 0; color: var(--text-light); }
+#current_turn_text {
+    margin-top: 2px;
+    font-size: 18px;
+    font-weight: 900;
+    color: var(--text-main);
+}
+
+/* --- 骰子控制区 --- */
+#dice {
     display: flex;
-    justify-content: center;
-    align-items: center; 
-    z-index: 1000; 
+    align-items: center;
+    justify-content: space-between;
+    background: white;
+    padding: 12px 20px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-soft);
+    border: 2px solid #FFF;
 }
-#task_content{
-    width: 500px;
-    height: 200px;
-    background-color: white;
-    border-radius: 10px;
-    padding: 20px;
-    box-sizing: border-box;
-}
-#gameOver{
-    position: fixed;
-    top: 0;
-    left: 0;
+
+#dice_num {
     width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
     display: flex;
-    justify-content: center;
-    align-items: center; 
-    z-index: 1000; 
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
 }
-#level {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1000;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center; /* 水平居中 */
-    align-items: center;     /* 垂直居中 */
-}
-.mode-card {
-    width: 280px;
-    max-height: 500px;
-    background-color: white;
-    border-radius: 10px;
-    padding: 20px;
-    margin: 0;
-    box-sizing: border-box;
-    display: flex;            /* 必须加上 display:flex 才能让下面的 direction 生效 */
-    flex-direction: column;   /* 子元素垂直排列 */
-    gap: 15px;               /* 子元素之间的统一间距 */
-}
-.mode-description {
-    flex: 1;          /* 占据剩余空间 */
-    text-align: center; /* 文字居中 */
-}
-.mode-select-btn {
-    flex: 0 0 auto;   /* 修复：不再强制拉伸，保持按钮自身高度 */
-    padding: 10px 0;  /* 增加按钮上下内边距，更好点击 */
+
+#roll_dice {
+    background: linear-gradient(135deg, var(--accent-color), #ffb7b2);
+    color: #fff;
     border: none;
-    border-radius: 5px;
-    background-color: #f0f0f0; /* 简单的中性背景 */
+    padding: 12px 24px;
+    border-radius: 30px;
+    font-size: 15px;
+    font-weight: 800;
     cursor: pointer;
+    box-shadow: 0 6px 15px rgba(255, 183, 178, 0.4);
+    min-width: 100px;
+}
+
+#roll_dice:active:not(:disabled) { transform: scale(0.92); }
+#roll_dice:disabled { background: #E0E0E0; box-shadow: none; cursor: not-allowed; }
+
+#dice_num_text {
+    font-size: 32px;
+    font-weight: 900;
+    background: linear-gradient(45deg, var(--primary-boy), var(--primary-girl));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin: 0;
+    width: 50px;
+    text-align: center;
+}
+
+#task_text {
+    flex: 1;
+    margin: 0;
+    font-size: 13px;
+    color: var(--text-main);
+    background: #F8F8F8;
+    padding: 6px 12px;
+    border-radius: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* --- 棋盘区域 --- */
+#checkerboard {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    position: relative;
+    background: transparent;
+}
+
+#checkerboard::after {
+    content: "";
+    position: absolute;
+    top: 10px; bottom: 10px; left: 10px; right: 10px;
+    background: white;
+    border-radius: 20px;
+    z-index: -1;
+    box-shadow: inset 0 0 20px rgba(0,0,0,0.02);
+}
+
+.row {
+    flex: 1;
+    display: flex;
+    width: 100%;
+}
+
+.cell {
+    flex: 1;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2px;
+    border-radius: 8px;
+    background-color: var(--cell-odd);
+}
+
+.row:nth-child(odd) .cell:nth-child(even),
+.row:nth-child(even) .cell:nth-child(odd) {
+    background-color: var(--cell-even);
+}
+
+.cell p {
+    position: absolute;
+    z-index: 1;
+    font-size: 10px;
+    color: var(--primary-girl);
+    opacity: 0.4;
+    font-weight: 700;
+    bottom: 2px; right: 4px;
+    margin: 0;
+}
+
+/* 终点 */
+.end-cell {
+    background: radial-gradient(circle, #FFF0F0 0%, #FFE4E1 100%) !important;
+    border: 2px dashed var(--primary-girl);
+}
+
+.house {
+    width: 80%; height: 80%; object-fit: contain; z-index: 5;
+    animation: floating 3s ease-in-out infinite;
+}
+@keyframes floating { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+
+/* 棋子 */
+.piece-img {
+    position: absolute;
+    width: 65%; height: 65%;
+    object-fit: contain;
+    z-index: 10;
+    transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.15));
+}
+
+.piece-img.boy-piece {
+    background: radial-gradient(circle, white 60%, transparent 65%);
+    border-radius: 50%; padding: 2px;
+    transform: translate(-15%, -15%);
+}
+.piece-img.girl-piece {
+    background: radial-gradient(circle, white 60%, transparent 65%);
+    border-radius: 50%; padding: 2px;
+    transform: translate(15%, 15%);
+}
+
+/* --- 弹窗通用 (关键修复部分) --- */
+#Task_Window, #gameOver, #level {
+    position: fixed; /* 必须是Fixed */
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(255, 249, 240, 0.75);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    z-index: 1000; /* 确保在最上层 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.4s ease;
+}
+
+#level {
+    align-items: flex-start; /* 内容从上往下排 */
+    padding-top: 20px;
+    overflow-y: auto; /* 允许滚动 */
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-content: flex-start;
+}
+
+#task_content, #gameOver > div {
+    background: #FFFFFF;
+    border-radius: 24px;
+    padding: 30px;
+    box-shadow: var(--shadow-float);
+    border: 4px solid #FFF;
+    width: 85%;
+    max-width: 320px;
+    text-align: center;
+}
+
+/* 模式卡片 */
+.mode-card {
+    background: #FFFFFF;
+    width: 90%;
+    max-width: 320px;
+    margin: 10px auto; /* 居中 */
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: var(--shadow-soft);
+    border: 2px solid transparent;
+    transition: all 0.3s;
+}
+
+.mode-card:hover { transform: translateY(-3px); border-color: var(--primary-boy); }
+.mode-card.selected { border-color: var(--primary-girl); background-color: #FFF0F5; }
+
+.mode-title { font-size: 18px; font-weight: 800; color: var(--primary-boy-dark); margin-bottom: 5px;}
+.mode-description { font-size: 13px; color: var(--text-light); margin-bottom: 15px; }
+
+/* 按钮通用 */
+button {
+    border: none; padding: 12px 20px; border-radius: 16px;
+    font-size: 14px; font-weight: 700; cursor: pointer;
+    transition: transform 0.1s; margin: 5px;
+}
+button:active { transform: scale(0.95); }
+
+#accept_task { background: var(--primary-boy); color: #fff; box-shadow: 0 4px 10px rgba(160, 233, 255, 0.5); }
+#reject_task { background: var(--primary-girl); color: #fff; box-shadow: 0 4px 10px rgba(255, 183, 178, 0.5); }
+.mode-select-btn { background: var(--accent-color); color: #5D4037; width: 100%; }
+#restart_game { background: var(--primary-boy); color: white; width: 100%; }
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+@media (max-width: 380px) {
+    #player_board { padding: 5px 10px; }
+    .player_img { width: 45px; height: 45px; }
 }
